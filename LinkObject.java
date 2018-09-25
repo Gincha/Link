@@ -6,18 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Link {
+public class LinkObject{
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)   //makes new object Link in database ??
 	private String id;
 	private String URL;
 
-	public Link() {
+	public LinkObject() {
 
 	}
 
-	public Link(String id, String URL) {
+	public LinkObject(String id, String URL) {
 		this.id = id;
 		this.URL = URL;
 

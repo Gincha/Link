@@ -13,13 +13,13 @@ public class LinkManager {
 //	@Autowired
 //	private LinkRepository linkRepository;
 	
-	private List<Link> links = new ArrayList<>(Arrays.asList(
-			new Link("links", "www.google.com"), 
-			new Link("odo", "odo.lv"),
-			new Link("ss", "www.youtube.com"))
+	private List<LinkObject> links = new ArrayList<>(Arrays.asList(
+			new LinkObject("links", "www.google.com"), 
+			new LinkObject("odo", "odo.lv"),
+			new LinkObject("ss", "www.youtube.com"))
 			);
 
-	public List<Link> getAllLinks() {
+	public List<LinkObject> getAllLinks() {
 		return links;
 //		List<Link> liste = new ArrayList<Link>();
 //		linkRepository.findAll()
@@ -27,26 +27,26 @@ public class LinkManager {
 //		return liste;
 	}
 
-	public Link getLink(String id) {
+	public LinkObject getLink(String id) {
 		return links.stream().filter(l -> l.getId().equals(id)).findFirst().get();
 //		return linkRepository.findById(id).get();
 	}
 
-	public void addLink(Link link) {
-		link = new Link(link.getId(), link.getURL());
+	public void addLink(LinkObject link) {
+		link = new LinkObject(link.getId(), link.getURL());
 		links.add(link);
 //		linkRepository.save(link);
 
 	}
 	
 	public void addLink(String id, String URL) {
-		Link link = new Link(id, URL);
+		LinkObject link = new LinkObject(id, URL);
 		links.add(link);
 //		linkRepository.save(link);
 	}
 
-	public void updateLink(String id, Link link) {
-		for(Link item: links) {
+	public void updateLink(String id, LinkObject link) {
+		for(LinkObject item: links) {
 			if(item.getId().equals(id)) {
 				item = link;
 				return;

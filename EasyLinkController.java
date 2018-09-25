@@ -23,49 +23,49 @@ public class EasyLinkController {
 	@Autowired
 	private LinkManager linkManager;
 
-	@RequestMapping(value = "/", produces = "text/html;charset=UTF-8")
-	public String sayHi(@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "URL", required = false) String URL, HttpServletResponse response) {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		if (id == null && URL == null) {
-			
-			sb.append("Hi, welcome in EasyLink\n");
-			sb.append("<form action=''>\n");
-			sb.append("Your link name: <input type='text' name='id' value=''><br/>\n");
-			sb.append("Your URL:<input type='text' name='URL' value=''><br/>\n");
-			sb.append("<input type='submit' value='Insert My URL'></form><br/>\n");
-			
-			// Following is also redundant because status is OK by default:
-			response.setStatus(HttpServletResponse.SC_OK);
-			return sb.toString();
-			
-		}else if (id.trim().isEmpty() || URL.trim().isEmpty()) {
-
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
-			sb.append("Wrong entry! Try again<br/>\n");
-			sb.append("<a href='/'>Back</a>\n");
-
-			return sb.toString();
-
-		}else {
-
-			linkManager = new LinkManager();
-
-			linkManager.addLink(id, URL);
-			response.setStatus(HttpServletResponse.SC_OK);
-			sb.append("Done! You can find your link at: localhost:8080/"+id+" <br/>\n");
-			sb.append("<a href='/links'>Back</a>\n");
-
-			return sb.toString();
-		}
-		
-	}
+//	@RequestMapping(value = "/", produces = "text/html;charset=UTF-8")
+//	public String sayHi(@RequestParam(value = "id", required = false) String id,
+//			@RequestParam(value = "URL", required = false) String URL, HttpServletResponse response) {
+//		
+//		StringBuilder sb = new StringBuilder();
+//		
+//		if (id == null && URL == null) {
+//			
+//			sb.append("Hi, welcome in EasyLink\n");
+//			sb.append("<form action=''>\n");
+//			sb.append("Your link name: <input type='text' name='id' value=''><br/>\n");
+//			sb.append("Your URL:<input type='text' name='URL' value=''><br/>\n");
+//			sb.append("<input type='submit' value='Insert My URL'></form><br/>\n");
+//			
+//			// Following is also redundant because status is OK by default:
+//			response.setStatus(HttpServletResponse.SC_OK);
+//			return sb.toString();
+//			
+//		}else if (id.trim().isEmpty() || URL.trim().isEmpty()) {
+//
+//			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//
+//			sb.append("Wrong entry! Try again<br/>\n");
+//			sb.append("<a href='/'>Back</a>\n");
+//
+//			return sb.toString();
+//
+//		}else {
+//
+//			linkManager = new LinkManager();
+//
+//			linkManager.addLink(id, URL);
+//			response.setStatus(HttpServletResponse.SC_OK);
+//			sb.append("Done! You can find your link at: localhost:8080/"+id+" <br/>\n");
+//			sb.append("<a href='/links'>Back</a>\n");
+//
+//			return sb.toString();
+//		}
+//		
+//	}
 
 	@RequestMapping("/links")
-	public List<Link> getAllLinks() {
+	public List<LinkObject> getAllLinks() {
 		return linkManager.getAllLinks();
 	}
 
@@ -116,7 +116,7 @@ public class EasyLinkController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/links")
 //	@ResponseBody
-	public String addLink(@RequestBody Link link) {
+	public String addLink(@RequestBody LinkObject link) {
 //	(@RequestParam(value = "id", required = false) String id,
 //			@RequestParam(value = "URL", required = false) String URL, HttpServletResponse response) {
 //		
@@ -159,7 +159,7 @@ public class EasyLinkController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/links/{id}")
-	public void updateLink(@RequestBody Link link, @PathVariable String id) {
+	public void updateLink(@RequestBody LinkObject link, @PathVariable String id) {
 		linkManager.updateLink(id, link);
 	}
 
